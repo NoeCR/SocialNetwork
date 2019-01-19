@@ -1,12 +1,11 @@
 <?php
 
 namespace BackendBundle\Entity;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Users
  */
-class Users
-{
+class Users implements UserInterface, \Serializable {
     /**
      * @var integer
      */
@@ -57,8 +56,42 @@ class Users
      */
     private $image;
 
+    public function getUsername(){
+        return $this->email;
+    }
 
+    public function getSalt(){
+        return null;
+    }
+    
+    public function getRoles(){
+        return array('ROLE_USER', 'ROLE_ADMIN');
+    }
+    
+    public function eraseCredentials(){
+        
+    }
+    
+    public function __toString() {
+        return $this->name;
+    }
+    
+    public function serialize() {
+        return serialize(array(
+            $this->id,
+            $this->email,
+            $this->password
+        ));
+    }
+    public function unserialize($serialized) {
+        list(
+             $this->id,
+                $this->email,
+                $this->password
+                ) = unserialize($serialized);
+    }
     /**
+     * 
      * Get id
      *
      * @return integer

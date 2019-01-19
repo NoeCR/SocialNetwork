@@ -8,8 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PublicationController extends Controller{
     
-    public function inedxAction(Request $request){
-        echo "Acción index publication";
-        die();
+    public function indexAction(Request $request){
+         return $this->render('AppBundle:Publication:home.html.twig');
     }
 }

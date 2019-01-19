@@ -6,6 +6,10 @@ app_publication:
     resource: "@AppBundle/resources/config/routing/publication.yml"
     prefix: /
 
+app_following:
+    resource: "@AppBundle/resources/config/routing/following.yml"
+    prefix: /
+    
 app_homepage:
-    path: /
-    defaults: { _controller: AppBundle:User:login }
+    path: /home
+    defaults: { _controller: AppBundle:Publication:index }

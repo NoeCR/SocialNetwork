@@ -1,0 +1,10 @@
+{% extends "AppBundle:Layouts:layout.html.twig" %}
+{% block content %}
+<div class="col-lg-8 box-form">
+    <h2>Datos usuario</h2>
+        <hr/>        
+        {{form_start(form, {'action':'', 'method':'POST', 'enctype':'multipart/form-data'})}}
+        {{form_errors(form)}}
+        {{form_end(form)}}
+</div>
+{% endblock%}
