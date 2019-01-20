@@ -1,12 +1,16 @@
 {% extends "AppBundle:Layouts:layout.html.twig" %}
 {% block javascript %}
     {{ parent() }}
-    <script src="{{ asset('assets/js/custom/users.js')}}"></script>
+    <!--<script src="{{ asset('assets/js/custom/users.js')}}"></script>-->
 {% endblock %}
 {% block content %}
     <div class="container">
         <div class="col-lg-12 box-form">
-            <h1>Gente</h1>
+            {% if type == 'following' %}
+                <h1 class="box-header">Gente que estas siguiendo</h1>
+            {% else %}
+                 <h1 class="box-header">Seguidores de {{ profile_user.nick}}</h1>
+            {% endif %}
             <div class="count">
                 <span class="label label-primary">
                     Total de usuarios: {{ pagination.getTotalItemCount }}
@@ -14,7 +18,13 @@
             </div>
             <hr />
             <div class="box-content box-users">
-                {% for user in pagination %}
+                {% for follow in pagination %}
+                    
+                    {% if type == 'following' %}
+                       {% set user = follow.followed %}
+                    {% else %}
+                         {% set user = follow.user %}
+                    {% endif %}
                     <div class="col-lg-12 user-item">
                         <div class="avatar">
                             {% if user.image == null%}

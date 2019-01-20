@@ -85,7 +85,7 @@
                                             <span class="caret"></span>                                            
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="">
+                                            <li><a href="{{ path('user_profile', {'nickname': app.user.nick}) }}">
                                                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
                                                     Mi perfil</a></li>
                                             <li><a href="{{path('user_edit')}}">

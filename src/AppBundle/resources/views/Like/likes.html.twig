@@ -5,10 +5,17 @@
 {% endblock%}
 {% block content %}
     <div class="container">
-        <div class="col-lg-7 box-default pull-left" id="timeline">
-            <h1 class="box-header">Timeline</h1>            
+        <div class="col-lg-12 box-default pull-left" id="timeline">
+            <h1 class="box-header">Publicaciones</h1>      
+            <div class="count">
+                <span class="label label-primary">
+                    Total publicaciones: {{ pagination.getTotalItemCount }}
+                </span>
+            </div>
+                <hr />
             <div class="box-content">
-                {% for publication in pagination%} 
+                {% for like in pagination%}
+                    {% set publication = like.publication %}
                     <div class="col-lg-12 publication-item">
                         <div class="avatar">
                             {% if publication.user.image == null%}
@@ -86,72 +93,6 @@
                     {{ knp_pagination_render(pagination)}}
                 </div>
             </div>           
-        </div>
-        <div class="col-lg-4 pull-left box-default" id="user-card">
-                {% if app.user != null %}
-                    <div class="avatar">                   
-                        {% if app.user.image == null %}
-                            <img src="{{ asset('assets/images/default.png')}}" />
-                        {%else%}
-                            <img src="{{ asset('uploads/users/'~app.user.image)}}" />
-                        {%endif%}                                      
-                    </div>
-                    <div class="name-surname">
-                        <a href="{{ path('user_profile', {'nickname': app.user.nick}) }}">{{ app.user.name }} {{ app.user.surname }}</a>
-                        <div class="clearfix"></div> 
-                        <span class="nickname">
-                            {{ app.user.nick }}
-                        </span>
-                    </div>
-                {%endif%}   
-                <div class="clearfix"></div>   
-                {% set user_stats = app.user|user_stats %}
-                <div class="following-data">
-                    <a href="{{ path('following_users', {'nickname': app.user.nick }) }}">
-                        <span class="label-stat">
-                            Siguiendo
-                        </span>    
-                        <span class="number-stat">
-                            {{ user_stats.following }}
-                        </span>
-                    </a>                    
-                </div>
-                <div class="following-data">
-                    <a href="{{ path('followed_users', {'nickname': app.user.nick }) }}">
-                        <span class="label-stat">
-                            Seguidores
-                        </span>    
-                        <span class="number-stat">
-                           {{ user_stats.followers }}
-                        </span>
-                    </a>                    
-                </div>
-                <div class="following-data">
-                    <a href="{{ path('user_profile', {'nickname': app.user.nick }) }}">
-                        <span class="label-stat">
-                            Publicaciones
-                        </span>    
-                        <span class="number-stat">
-                           {{ user_stats.publications }}
-                        </span>
-                    </a>                    
-                </div>
-                <div class="following-data">
-                    <a href="{{ path('user_likes', {'nickname': app.user.nick }) }}">
-                        <span class="label-stat">
-                            Me gustas
-                        </span>    
-                        <span class="number-stat">
-                           {{ user_stats.likes }}
-                        </span>
-                    </a>                    
-                </div>
-        </div>
-        <div class="col-lg-4 pull-left box-default" id="new-publication">
-            <h1 class="box-header">Crear publicación</h1>
-            
-            {{ form_start(form, {action: '', 'method': 'POST'}) }}
-            {{ form_end(form) }}
         </div>
     </div>
 {% endblock%}

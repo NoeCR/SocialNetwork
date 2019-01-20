@@ -72,13 +72,15 @@ class PublicationController extends Controller{
             }
             return $this->redirectToRoute('home_publications');
         }
-        
-        $publications = $this->getPublications($request);
-        
-         return $this->render('AppBundle:Publication:home.html.twig', array(
-             'form' => $form->createView(),
-             'pagination' => $publications
-         ));
+        if (is_object($this->getUser())) {
+            $publications = $this->getPublications($request);
+
+             return $this->render('AppBundle:Publication:home.html.twig', array(
+                 'form' => $form->createView(),
+                 'pagination' => $publications
+             ));
+        }
+        return $this->redirect('login');
     }
     
     public function getPublications(Request $request){
@@ -94,6 +96,7 @@ class PublicationController extends Controller{
         foreach ($following as $follow){
             array_push($following_array, $follow->getFollowed());
         }
+        
         $query = $publications_repo->createQueryBuilder('p')
                 ->where('p.user = (:user_id) OR p.user IN (:following)')
                 ->setParameter('user_id', $user->getId())
