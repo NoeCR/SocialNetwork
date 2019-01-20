@@ -49,24 +49,17 @@ class UserType extends AbstractType
                     ))
                 ->add('bio', TextareaType::class, array(
                         'label' => 'Biografía',
-                        'required' => 'false',
+                        'required' => false,
                         'attr' => array(
                             'class' => 'form-bio form-control'
                         )
                     ))
                 ->add('image', FileType::class, array(
                         'label' => 'Foto',
-                        'required' => 'false',
+                        'required' => false,
                         'data_class' => null,
                         'attr' => array(
                             'class' => 'form-image'
-                        )
-                    ))
-                ->add('password', PasswordType::class, array(
-                        'label' => 'Contraseña',
-                        'required' => 'required',
-                        'attr' => array(
-                            'class' => 'form-password form-control'
                         )
                     ))
                 ->add('Guardar', SubmitType::class, array(

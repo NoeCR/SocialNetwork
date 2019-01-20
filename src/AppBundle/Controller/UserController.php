@@ -6,7 +6,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
 use BackendBundle\Entity\Users;
 use AppBundle\Form\RegisterType;
 use AppBundle\Form\UserType;
@@ -34,9 +33,6 @@ class UserController extends Controller {
         ));
     }
 
-    public function logoutAction(){
-        return $this->render('AppBundle:Publication:home.html.twig');
-    }
     public function RegisterAction(Request $request) {
 
         if (is_object($this->getUser())) {
@@ -49,7 +45,6 @@ class UserController extends Controller {
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
-                //$userRepo = $em->getRepository("backendBundle:User");
 
                 $query = $em->createQuery('SELECT u FROM BackendBundle:Users u WHERE u.email = :email OR u.nick = :nick')
                         ->setParameter('email', $form->get('email')->getData())
@@ -72,7 +67,7 @@ class UserController extends Controller {
                     if ($flush == null) {
                         $status = "Te has registrado corectamente";
                         $this->addFlash('success', $status);
-                        return $this->redirect("login");
+                        return $this->redirectToRoute("login");
                     } else {
                         $status = "No te has registrado corectamente";
                     }
@@ -108,7 +103,7 @@ class UserController extends Controller {
     public function editUserAction(Request $request) {
         
         $user = $this->getUser();
-        $user_iimage = $user->getImage();
+        $user_image = $user->getImage();
         $form = $this->createForm(UserType::class, $user);
         
         $form->handleRequest($request);
@@ -135,7 +130,7 @@ class UserController extends Controller {
                             $user->setImage($file_name);
                         }
                     }else{
-                        $user->setImage($user_iimage);
+                        $user->setImage($user_image);
                     }
 
                     $em->persist($user);
@@ -143,17 +138,18 @@ class UserController extends Controller {
 
                     if ($flush == null) {
                         $status = "datos guardados correctaemtne";
-                        //$this->addFlash('success', $status);                       
+                        $this->addFlash('success', $status);                       
                     } else {
                         $status = "No se han podido guardar los datos";
                     }
                 } else {
                     $status = "Ya existe el usuario";
+                    $this->addFlash('error', $status);
                 }
             } else {
                 $status = "No se ha guardado correctamente";
-            }
-            $this->addFlash('error', $status);
+                $this->addFlash('error', $status);
+            }            
             return $this->redirect('my-data');
         }
         return $this->render('AppBundle:User:edit_user.html.twig', array(
@@ -180,7 +176,7 @@ class UserController extends Controller {
     public function searchAction(Request $request){
         $em = $this->getDoctrine()->getManager();
         
-        $search = $request->query->get('search', null);
+        $search = trim($request->query->get('search', null));
         
         if($search == null){
             return $this->redirect($this->generateUrl('home_publications'));

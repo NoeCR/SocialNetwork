@@ -11,5 +11,5 @@ app_following:
     prefix: /
     
 app_homepage:
-    path: /home
+    path: /
     defaults: { _controller: AppBundle:Publication:index }
