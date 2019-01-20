@@ -46,6 +46,35 @@
                                     <img src="{{ asset('uploads/publications/images/'~publication.image )}}" />
                                 </div>    
                             {% endif %}
+                            
+                            <div class="pull-right like">
+                                
+                                <span data-id="{{ publication.id }}" 
+                                      class="
+                                      {% if app.user|liked(publication) == true %}
+                                          hidden
+                                      {% endif%}
+                                      btn-like glyphicon glyphicon-heart-empty" 
+                                      aria-hidden="true" 
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Me gusta">
+                                </span>
+                                      
+                                      
+                                <span data-id="{{ publication.id }}" 
+                                      class="
+                                      {% if app.user|liked(publication) == false %}
+                                          hidden
+                                      {% endif%}
+                                      btn-unlike active glyphicon glyphicon-heart-empty" 
+                                      aria-hidden="true" 
+                                      data-toggle="tooltip"
+                                      data-placement="bottom"
+                                      title="Ya no me gusta">
+                                </span>
+                                      
+                            </div>
                         </div>
                         <div class="clearfix"></div>
                         <hr />
