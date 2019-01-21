@@ -30,6 +30,9 @@ class LikeController extends Controller{
         $flush = $em->flush();
         
         if($flush == null){
+            $notification = $this->get('app.notification_service');
+            $notification->set($publication->getUser(), 'like', $user->getId(), $publication->getId());
+            
             $status = 'Le has dado Like!';
         }else{
             $status  = 'Error al guardar tu like :/';

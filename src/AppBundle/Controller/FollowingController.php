@@ -33,6 +33,9 @@ class FollowingController extends Controller {
         $flush = $em->flush();
 
         if ($flush == null) {
+            $notification = $this->get('app.notification_service');
+            $notification->set($followed, 'follow', $user->getId());
+            
             $status = "Ahora estas siguiendo a usuario";
         } else {
             $status = "No se ha podido seguir a usuario";
@@ -53,6 +56,9 @@ class FollowingController extends Controller {
         $flush = $em->flush();
 
         if ($flush == null) {
+            $notification = $this->get('app.notification_service');
+            $notification->set($publication->getUser(), 'unfollow', $user->getId());
+            
             $status = "Has dejado de seguir a usuario";
         } else {
             $status = "No se ha podido dejar de seguir a usuario";
