@@ -18,6 +18,10 @@ app_notification:
     resource: "@AppBundle/resources/config/routing/notification.yml"
     prefix: /
     
+app_private_message:
+    resource: "@AppBundle/resources/config/routing/private_message.yml"
+    prefix: /
+    
 app_homepage:
     path: /
     defaults: { _controller: AppBundle:Publication:index }

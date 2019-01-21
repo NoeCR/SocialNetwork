@@ -1,6 +1,7 @@
 BackendBundle\Entity\Users:
     type: entity
     table: users
+    repositoryClass: BackendBundle\Repository\UserRepository
     uniqueConstraints:
         users_uniques_fields:
             columns:

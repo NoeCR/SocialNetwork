@@ -215,3 +215,12 @@ body{
 .profile-box .user-stats .number-stat{
     font-weight: bold;
 }
+/* MENSAJES PRIVADOS */
+.bnt-enviados{
+    float: right;
+}
+.form-private-message input,
+.form-private-message textarea,
+.form-private-message select{
+    margin-bottom: 10px;
+}
