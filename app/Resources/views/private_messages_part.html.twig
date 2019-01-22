@@ -18,7 +18,10 @@
                             {{ message.emitter.name }} {{ message.emitter.surname }}
                         </a>
                         -
-                        {{ message.emitter.nick }}
+                        Para 
+                        <a href="{{ path('user_profile', {'nickname': message.receiver.nick }) }}">
+                               {{ message.receiver.nick }}
+                        </a>
                         -
                         <span class="pub-date">
                             {{ message.createdAt|long_time }}

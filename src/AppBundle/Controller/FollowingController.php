@@ -22,7 +22,7 @@ class FollowingController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
 
-        $user_repo = $em->getRepository('BackendBundle:USers');
+        $user_repo = $em->getRepository('BackendBundle:Users');
         $followed = $user_repo->find($followed_id);
 
         $following = new Following();
@@ -57,7 +57,7 @@ class FollowingController extends Controller {
 
         if ($flush == null) {
             $notification = $this->get('app.notification_service');
-            $notification->set($publication->getUser(), 'unfollow', $user->getId());
+            $notification->set($followed->getFollowed(), 'unfollow', $user->getId());
             
             $status = "Has dejado de seguir a usuario";
         } else {

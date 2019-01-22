@@ -23,10 +23,12 @@ $(document).ready(function(){
     
     ias.on('ready', function(events){
        buttons(); 
+       followButtons(); 
     });
     
     ias.on('rendered', function(events){
        buttons(); 
+       followButtons(); 
     });
 });
 

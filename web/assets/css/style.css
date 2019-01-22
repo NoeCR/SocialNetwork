@@ -195,7 +195,7 @@ body{
     padding-top: 20px;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
-    width: 48%;
+    width: 50%;
     text-align: center;
 } 
 .profile-box .user-stats .following-data{
@@ -214,6 +214,10 @@ body{
 }
 .profile-box .user-stats .number-stat{
     font-weight: bold;
+}
+.profile-box .button-following{
+    margin-top: 20px;
+    
 }
 /* MENSAJES PRIVADOS */
 .bnt-enviados{

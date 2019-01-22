@@ -1,6 +1,7 @@
 {% extends "AppBundle:Layouts:layout.html.twig" %}
 {% block javascript %}
     {{ parent() }}
+    <script src="{{ asset('assets/js/custom/buttons-following.js')}}"></script>
     <script src="{{ asset('assets/js/custom/profile.js')}}"></script>
 {% endblock%}
 {% block content %}
@@ -15,6 +16,36 @@
         </div>
 
         <div class="name-surname">
+            
+            {% if app.user.id != user.id%}
+                <div class="button-following">
+                    {% if user|following(app.user) == true %}
+                        <button class="btn btn-sm btn-disable disable" >
+                            Te sigue
+                        </button>
+                    {% else %}
+                        <button class="btn btn-sm btn-disable disable" >
+                            No te sigue
+                        </button>
+                    {% endif %}    
+                    <button class="btn btn-sm btn-success btn-follow
+                            {% if app.user|following(user) == true %}
+                                hidden
+                            {% endif %}
+                            " data-followed="{{user.id}}">
+                        <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>Seguir
+                    </button>
+
+                    <button class="btn btn-sm btn-default btn-unfollow
+                            {% if app.user|following(user) == false %}
+                                hidden
+                            {% endif %}
+                            " data-followed="{{user.id}}">
+                        <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>Dejar de seguir
+                    </button>
+                </div>  
+            {% endif %}
+            
             <h2>{{ user.name }} {{ user.surname }} </h2>
             <div class="clearfix"></div>
             <span class="nick-name">
@@ -48,7 +79,7 @@
                     </span>
                 </a>                    
             </div>
-            
+
             <div class="following-data">
                 <a href="{{ path('user_profile', {'nickname': app.user.nick }) }}">
                     <span class="label-stat">
